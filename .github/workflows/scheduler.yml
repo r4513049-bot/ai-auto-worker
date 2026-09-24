@@ -2,9 +2,11 @@ name: AI Cloud Worker
 
 on:
   schedule:
-    # Runs automatically every 12 hours
     - cron: '0 */12 * * *'
-  workflow_dispatch: # Allows you to trigger it manually anytime with 1 click
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   run-ai-script:
@@ -20,4 +22,11 @@ jobs:
 
       - name: Run automation script
         run: python main.py
-        
+
+      - name: Commit and push generated files
+        run: |
+          git config --global user.name "AI Worker Bot"
+          git config --global user.email "bot@ci.local"
+          git add index.html
+          git commit -m "Auto-update index.html via cloud worker [skip ci]" || exit 0
+          git push
