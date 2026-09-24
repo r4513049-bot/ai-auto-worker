@@ -1,4 +1,5 @@
 import datetime
+import os
 
 timestamp = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -24,7 +25,8 @@ html_content = f"""
 </html>
 """
 
+# Write the file
 with open("index.html", "w") as f:
     f.write(html_content)
 
-print("index.html successfully generated and updated by cloud worker.")
+print("index.html generated successfully.")
